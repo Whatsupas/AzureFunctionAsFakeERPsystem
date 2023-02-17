@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "FunctionAppStudy2": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7247",
+      "launchBrowser": false
+    }
+  }
+}
