@@ -26,16 +26,16 @@ namespace FunctionAppStudy2
 
             return await Task.FromResult(new Response() { Success = true, ClientId = clientId, QueueCount = clientIdsQueue.Count });
         }
-        private static ConcurrentQueue<int> GetQueueWithUniqueClientIds(int count, int minValue, int maxValue)
+        private static ConcurrentQueue<int> GetQueueWithUniqueClientIds(int takeCount, int minValue, int rangeCount)
         {
             var rnd = new Random();
 
-            if (count > (maxValue - minValue))
-                throw new ArgumentException("maxValue minus minValue should be less or equal to count");
+            if (takeCount > (minValue + rangeCount))
+                throw new ArgumentException("minValue plus rangeCount should be less or equal to takeCount");
 
-            var temporaryList = Enumerable.Range(minValue, maxValue + 1)
+            var temporaryList = Enumerable.Range(minValue, rangeCount + 1)
                                           .OrderBy(x => rnd.Next())
-                                          .Take(count);
+                                          .Take(takeCount);
 
             var temporaryQueue = new ConcurrentQueue<int>();
             Parallel.ForEach(temporaryList, x => temporaryQueue.Enqueue(x));
